@@ -98,22 +98,23 @@ deactivate
 
 Conda is an excellent package and environment manager that can handle non-Python dependencies like OpenMPI. This method creates a completely isolated and portable environment, which is great for reproducibility on local machines or servers where you have Conda installed.
 
-**Step-by-step instructions:**
+## Step-by-step instructions:
 
-**Create a Conda Environment:**
+### Create a Conda Environment:
 
 Create a new environment, specifying the Python version you need. We will name it mpi-env.
 
-# Create a new environment named 'mpi-env' with Python 3.9
+### Create a new environment named 'mpi-env' with Python 3.9
 
 ```
 conda create --name mpi-env python=3.9
 ```
-# Activate the Conda Environment:
+
+### Activate the Conda Environment:
 
 You must activate the environment before installing packages into it.
 
-# Activate the environment
+### Activate the environment
 
 ```
 conda activate mpi-env
@@ -121,17 +122,17 @@ conda activate mpi-env
 
 Your shell prompt should now be prefixed with (mpi-env).
 
-# Install OpenMPI and Other Dependencies:
+### Install OpenMPI and Other Dependencies:
     
 Using Conda, install OpenMPI, mpi4py, and all other libraries from a channel like conda-forge, which has a wide selection of        compatible packages. Conda will ensure that the mpi4py it installs is correctly linked to the OpenMPI version it also installs.
 
-# Install openmpi, mpi4py, and other libraries from the conda-forge channel
+### Install openmpi, mpi4py, and other libraries from the conda-forge channel
 
 ```    
 conda install -c conda-forge openmpi mpi4py numpy pandas
 ```
 
-# Verify the Installation:
+### Verify the Installation:
     
 The mpirun command should now point to the one installed inside your Conda environment.
 
@@ -145,13 +146,13 @@ Ready to Go!
 
 Your self-contained Conda environment is ready. Use the mpirun command from within the environment to execute your scripts.
 
-# Run your script on 4 processes
+### Run your script on 4 processes
 
 ```
 mpirun -n 4 python your_script.py
 ```
 
-# Deactivating the Environment:
+### Deactivating the Environment:
 
 When you are finished, you can deactivate the Conda environment.
 
