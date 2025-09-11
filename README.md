@@ -11,44 +11,52 @@ We present two common, robust methods for achieving this setup.
 # Installation and Setup
 
 Please choose one of the following two options to configure your environment.
-Option 1: Using System Modules and a Python Virtual Environment
+
+# Option 1: Using System Modules and a Python Virtual Environment
 
 This approach is ideal for HPC clusters where optimized libraries like OpenMPI are provided through a module system. The mpi4py package is smart enough to be compiled against the version of MPI that is currently loaded in your shell environment.
 
-# Step-by-step instructions:
+## Step-by-step instructions:
 
-## Load the OpenMPI Module:
+### Load the OpenMPI Module:
     
 First, you need to load the OpenMPI compiler and runtime libraries into your environment. The exact name might differ slightly       based on your system's configuration (openmpi/4.1.1, gnu-openmpi, etc.). Use module avail to see available modules.
 
-## Load the OpenMPI module
+### Load the OpenMPI module
 
 ```
 module load openmpi
 ```
 
-## Verify MPI is Loaded:
+### Verify MPI is Loaded:
     
 Check that the MPI commands are available in your PATH.
 
+```
 which mpirun
+```
     
 **Expected output: /path/to/your/cluster/openmpi/bin/mpirun**
 
-## Create a Python Virtual Environment:
+### Create a Python Virtual Environment:
     
 It is best practice to isolate project dependencies. Create a virtual environment in your project directory.
 
 **Create a virtual environment named 'venv'**
 
+```
 python3 -m venv venv
+```
 
 **Activate the Virtual Environment:**
     
 Before installing packages, you must "enter" the environment.
 
-# Activate the environment
+### Activate the environment
+
+```
 source venv/bin/activate
+```
 
 Your shell prompt should now be prefixed with (venv).
 
@@ -58,11 +66,15 @@ With OpenMPI loaded and the virtual environment active, install mpi4py and any o
 
 **Ensure pip is up to date**
 
+```
 pip install --upgrade pip
+```
 
 **Install mpi4py and other packages**
 
+```
 pip install mpi4py numpy pandas
+```
 
 Ready to Go!
 
@@ -70,20 +82,25 @@ Your environment is now set up. To run a script, use the mpirun command provided
 
 **Run your script on 4 processes**
 
+```
 mpirun -n 4 python your_script.py
+```
 
-## Deactivating the Environment:
+### Deactivating the Environment:
+
 When you are finished, you can leave the virtual environment.
 
+```
 deactivate
+```
 
 # Option 2: Using a Conda Environment
 
 Conda is an excellent package and environment manager that can handle non-Python dependencies like OpenMPI. This method creates a completely isolated and portable environment, which is great for reproducibility on local machines or servers where you have Conda installed.
 
-Step-by-step instructions:
+**Step-by-step instructions:**
 
-    Create a Conda Environment:
+Create a Conda Environment:
     Create a new environment, specifying the Python version you need. We will name it mpi-env.
 
     # Create a new environment named 'mpi-env' with Python 3.9
