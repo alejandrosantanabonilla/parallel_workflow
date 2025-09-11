@@ -29,46 +29,51 @@ module load openmpi
     
 Check that the MPI commands are available in your PATH.
 
-    which mpirun
+which mpirun
     
-    **Expected output: /path/to/your/cluster/openmpi/bin/mpirun**
+**Expected output: /path/to/your/cluster/openmpi/bin/mpirun**
 
-    ## Create a Python Virtual Environment:
+## Create a Python Virtual Environment:
     
-    It is best practice to isolate project dependencies. Create a virtual environment in your project directory.
+It is best practice to isolate project dependencies. Create a virtual environment in your project directory.
 
-    ** Create a virtual environment named 'venv' **
-    python3 -m venv venv
+** Create a virtual environment named 'venv' **
 
-    **Activate the Virtual Environment:**
+python3 -m venv venv
+
+**Activate the Virtual Environment:**
     
-    Before installing packages, you must "enter" the environment.
+Before installing packages, you must "enter" the environment.
 
-    # Activate the environment
-    source venv/bin/activate
+# Activate the environment
+source venv/bin/activate
 
-    Your shell prompt should now be prefixed with (venv).
+Your shell prompt should now be prefixed with (venv).
 
-    **Install Python Dependencies with Pip:**
+**Install Python Dependencies with Pip:**
     
-    With OpenMPI loaded and the virtual environment active, install mpi4py and any other required packages. Pip will invoke the MPI      compiler (mpicc) during the installation of mpi4py.
+With OpenMPI loaded and the virtual environment active, install mpi4py and any other required packages. Pip will invoke the MPI      compiler (mpicc) during the installation of mpi4py.
 
-    **Ensure pip is up to date**
-    pip install --upgrade pip
+**Ensure pip is up to date**
 
-    **Install mpi4py and other packages**
-    pip install mpi4py numpy pandas
+pip install --upgrade pip
 
-    Ready to Go!
-    Your environment is now set up. To run a script, use the mpirun command provided by the module.
+**Install mpi4py and other packages**
 
-    **Run your script on 4 processes**
-    mpirun -n 4 python your_script.py
+pip install mpi4py numpy pandas
 
-    ## Deactivating the Environment:
-    When you are finished, you can leave the virtual environment.
+Ready to Go!
 
-    deactivate
+Your environment is now set up. To run a script, use the mpirun command provided by the module.
+
+**Run your script on 4 processes**
+
+mpirun -n 4 python your_script.py
+
+## Deactivating the Environment:
+When you are finished, you can leave the virtual environment.
+
+deactivate
 
 # Option 2: Using a Conda Environment
 
