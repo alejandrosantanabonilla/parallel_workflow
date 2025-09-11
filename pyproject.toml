@@ -1,0 +1,27 @@
+# File: pyproject.toml
+
+[project]
+name = "parallel_mpi_htp"
+version = "0.3.0" # Version bumped to reflect new install process
+description = "A Dask-MPI tool for high-throughput parallel relaxation of atomic structures."
+authors = [{ name = "Your Name", email = "your@email.com" }]
+requires-python = ">=3.8"
+
+# Core dependencies that are pure Python or have reliable pre-built wheels
+dependencies = [
+    "ase",
+    "dask[complete]",
+    "tblite==0.4.0",
+    "pyarrow==20.0.0",
+]
+
+[project.scripts]
+pmhtp-relax = "parallel_mpi_htp.cli:main"
+
+[project.optional-dependencies]
+# This group contains the entire MPI toolchain.
+# It MUST be installed in steps, not with pip install .[mpi].
+mpi = [
+    "mpi4py",
+    "dask-mpi"
+]
