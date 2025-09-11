@@ -4,9 +4,9 @@ This document provides detailed instructions on how to set up the necessary envi
 
 We present two common, robust methods for achieving this setup.
 
-    1. Option 1: For users on High-Performance Computing (HPC) clusters or systems that use environment modules. This method combines the system-provided OpenMPI with a standard Python virtual environment.
+    **Option 1:** For users on High-Performance Computing (HPC) clusters or systems that use environment modules. This method combines the system-provided OpenMPI with a standard Python virtual environment.
 
-    2. Option 2: For users on local machines (desktops, laptops) or systems where Conda is the preferred package manager. This method creates a self-contained environment with all dependencies, including OpenMPI, managed by Conda.
+    **Option 2:** For users on local machines (desktops, laptops) or systems where Conda is the preferred package manager. This method creates a self-contained environment with all dependencies, including OpenMPI, managed by Conda.
 
 # Installation and Setup
 
