@@ -22,8 +22,10 @@ This approach is ideal for HPC clusters where optimized libraries like OpenMPI a
 First, you need to load the OpenMPI compiler and runtime libraries into your environment. The exact name might differ slightly       based on your system's configuration (openmpi/4.1.1, gnu-openmpi, etc.). Use module avail to see available modules.
 
 ## Load the OpenMPI module
-    
+
+```
 module load openmpi
+```
 
 ## Verify MPI is Loaded:
     
@@ -37,7 +39,7 @@ which mpirun
     
 It is best practice to isolate project dependencies. Create a virtual environment in your project directory.
 
-** Create a virtual environment named 'venv' **
+**Create a virtual environment named 'venv'**
 
 python3 -m venv venv
 
