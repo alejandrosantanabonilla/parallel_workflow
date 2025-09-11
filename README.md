@@ -17,17 +17,17 @@ This approach is ideal for HPC clusters where optimized libraries like OpenMPI a
 
 # Step-by-step instructions:
 
-    ## Load the OpenMPI Module:
+## Load the OpenMPI Module:
     
-    First, you need to load the OpenMPI compiler and runtime libraries into your environment. The exact name might differ slightly       based on your system's configuration (openmpi/4.1.1, gnu-openmpi, etc.). Use module avail to see available modules.
+First, you need to load the OpenMPI compiler and runtime libraries into your environment. The exact name might differ slightly       based on your system's configuration (openmpi/4.1.1, gnu-openmpi, etc.). Use module avail to see available modules.
 
-    ## Load the OpenMPI module
+## Load the OpenMPI module
     
-    module load openmpi
+module load openmpi
 
-    ## Verify MPI is Loaded:
+## Verify MPI is Loaded:
     
-    Check that the MPI commands are available in your PATH.
+Check that the MPI commands are available in your PATH.
 
     which mpirun
     
