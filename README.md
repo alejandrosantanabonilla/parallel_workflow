@@ -1,39 +1,43 @@
-# parallel_workflow
+## parallel_workflow
 This new library utilizes an MPI workflow to perform high-throughput calculations, making it ideal for creating massive databases.
 
-
-My MPI Python Project
+# My MPI Python Project
 
 This document provides detailed instructions on how to set up the necessary environment and dependencies to run this project. The core requirement is a functional MPI (Message Passing Interface) implementation, specifically OpenMPI, that can be used by Python packages like mpi4py.
 
 We present two common, robust methods for achieving this setup.
 
-    Option 1: For users on High-Performance Computing (HPC) clusters or systems that use environment modules. This method combines the system-provided OpenMPI with a standard Python virtual environment.
+    1. Option 1: For users on High-Performance Computing (HPC) clusters or systems that use environment modules. This method combines the system-provided OpenMPI with a standard Python virtual environment.
 
-    Option 2: For users on local machines (desktops, laptops) or systems where Conda is the preferred package manager. This method creates a self-contained environment with all dependencies, including OpenMPI, managed by Conda.
+    2. Option 2: For users on local machines (desktops, laptops) or systems where Conda is the preferred package manager. This method creates a self-contained environment with all dependencies, including OpenMPI, managed by Conda.
 
-Installation and Setup
+# Installation and Setup
 
 Please choose one of the following two options to configure your environment.
 Option 1: Using System Modules and a Python Virtual Environment
 
 This approach is ideal for HPC clusters where optimized libraries like OpenMPI are provided through a module system. The mpi4py package is smart enough to be compiled against the version of MPI that is currently loaded in your shell environment.
 
-Step-by-step instructions:
+# Step-by-step instructions:
 
     Load the OpenMPI Module:
-    First, you need to load the OpenMPI compiler and runtime libraries into your environment. The exact name might differ slightly based on your system's configuration (openmpi/4.1.1, gnu-openmpi, etc.). Use module avail to see available modules.
+    
+    First, you need to load the OpenMPI compiler and runtime libraries into your environment. The exact name might differ slightly       based on your system's configuration (openmpi/4.1.1, gnu-openmpi, etc.). Use module avail to see available modules.
 
     # Load the OpenMPI module
+    
     module load openmpi
 
     Verify MPI is Loaded:
+    
     Check that the MPI commands are available in your PATH.
 
     which mpirun
+    
     # Expected output: /path/to/your/cluster/openmpi/bin/mpirun
 
     Create a Python Virtual Environment:
+    
     It is best practice to isolate project dependencies. Create a virtual environment in your project directory.
 
     # Create a virtual environment named 'venv'
