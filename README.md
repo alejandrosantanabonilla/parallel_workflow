@@ -100,42 +100,61 @@ Conda is an excellent package and environment manager that can handle non-Python
 
 **Step-by-step instructions:**
 
-Create a Conda Environment:
-    Create a new environment, specifying the Python version you need. We will name it mpi-env.
+**Create a Conda Environment:**
 
-    # Create a new environment named 'mpi-env' with Python 3.9
-    conda create --name mpi-env python=3.9
+Create a new environment, specifying the Python version you need. We will name it mpi-env.
 
-    Activate the Conda Environment:
-    You must activate the environment before installing packages into it.
+# Create a new environment named 'mpi-env' with Python 3.9
 
-    # Activate the environment
-    conda activate mpi-env
+```
+conda create --name mpi-env python=3.9
+```
+# Activate the Conda Environment:
 
-    Your shell prompt should now be prefixed with (mpi-env).
+You must activate the environment before installing packages into it.
 
-    Install OpenMPI and Other Dependencies:
+# Activate the environment
+
+```
+conda activate mpi-env
+```
+
+Your shell prompt should now be prefixed with (mpi-env).
+
+# Install OpenMPI and Other Dependencies:
     
-    Using Conda, install OpenMPI, mpi4py, and all other libraries from a channel like conda-forge, which has a wide selection of        compatible packages. Conda will ensure that the mpi4py it installs is correctly linked to the OpenMPI version it also installs.
+Using Conda, install OpenMPI, mpi4py, and all other libraries from a channel like conda-forge, which has a wide selection of        compatible packages. Conda will ensure that the mpi4py it installs is correctly linked to the OpenMPI version it also installs.
 
-    # Install openmpi, mpi4py, and other libraries from the conda-forge channel
+# Install openmpi, mpi4py, and other libraries from the conda-forge channel
+
+```    
+conda install -c conda-forge openmpi mpi4py numpy pandas
+```
+
+# Verify the Installation:
     
-    conda install -c conda-forge openmpi mpi4py numpy pandas
+The mpirun command should now point to the one installed inside your Conda environment.
 
-    Verify the Installation:
-    
-    The mpirun command should now point to the one installed inside your Conda environment.
+```
+which mpirun
+```
 
-    which mpirun
-    # Expected output: /path/to/your/conda/envs/mpi-env/bin/mpirun
+**Expected output: /path/to/your/conda/envs/mpi-env/bin/mpirun**
 
-    Ready to Go!
-    Your self-contained Conda environment is ready. Use the mpirun command from within the environment to execute your scripts.
+Ready to Go!
 
-    # Run your script on 4 processes
-    mpirun -n 4 python your_script.py
+Your self-contained Conda environment is ready. Use the mpirun command from within the environment to execute your scripts.
 
-    Deactivating the Environment:
-    When you are finished, you can deactivate the Conda environment.
+# Run your script on 4 processes
 
-    conda deactivate
+```
+mpirun -n 4 python your_script.py
+```
+
+# Deactivating the Environment:
+
+When you are finished, you can deactivate the Conda environment.
+
+```
+conda deactivate
+```
