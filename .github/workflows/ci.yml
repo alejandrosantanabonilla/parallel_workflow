@@ -53,7 +53,7 @@ jobs:
       - name: "Run parallel integration test with pytest"
         run: |
           echo "Executing tests within the 'tests/' directory with 4 parallel MPI processes..."
-          mpirun --oversubscribe -np 4 pytest tests/
+          mpirun --oversubscribe -np 4 pytest -m mpi tests/
 
 
 
