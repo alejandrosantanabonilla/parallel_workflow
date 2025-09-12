@@ -142,8 +142,19 @@ Using Conda, install OpenMPI, mpi4py, and all other libraries from a channel lik
 
 ### Install openmpi, mpi4py, and other libraries from the conda-forge channel
 
-```    
-conda install -c conda-forge openmpi mpi4py numpy pandas
+First, download the source code from GitHub using git clone and navigate into the project directory.
+
+```
+git clone https://github.com/alejandrosantanabonilla/parallel_workflow.git
+cd parallel_workflow
+```
+Now, install the parallel_mpi_htp package in "editable" mode:
+
+- The -e flag links the installation to your source code, so any changes you make are immediately available.
+- The .[mpi] part tells pip to install the optional MPI-related Python libraries (mpi4py, dask-mpi) defined in the pyproject.toml.
+
+```
+pip install -e .[mpi]
 ```
 
 ### Verify the Installation:
@@ -154,7 +165,7 @@ The mpirun command should now point to the one installed inside your Conda envir
 which mpirun
 ```
 
-**Expected output: /path/to/your/conda/envs/mpi-env/bin/mpirun**
+**Expected output:** /path/to/your/conda/envs/mpi-env/bin/mpirun
 
 Ready to Go!
 
