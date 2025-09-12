@@ -45,6 +45,3 @@ jobs:
           
           # Now that mpi4py is correctly installed, we can install dask-mpi.
           pip install dask-mpi      
-          mpirun -np 4 python water50.pyit add .github/workflows/ci.yml
-git commit -m "feat: Add GitHub Actions CI workflow for parallel testing"
-git push
