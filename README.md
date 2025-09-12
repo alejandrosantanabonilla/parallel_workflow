@@ -72,7 +72,15 @@ pip install --upgrade pip
 
 **Install parallel_workflow**
 
-Now, install the parallel_mpi_htp package in "editable" mode.
+
+First, download the source code from GitHub using git clone and navigate into the project directory.
+
+```
+git clone https://github.com/alejandrosantanabonilla/parallel_workflow.git
+cd parallel_workflow
+```
+
+Now, install the parallel_mpi_htp package in "editable" mode:
 
 - The -e flag links the installation to your source code, so any changes you make are immediately available.
 
