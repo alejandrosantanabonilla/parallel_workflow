@@ -1,5 +1,10 @@
 import os
+import time
 from ase.io import read, write
+
+# Dask and MPI imports 
+import dask_mpi as dm
+from dask.distributed import Client
 
 def create_atoms(filename):
     """Reads one or more molecular structures from an XYZ file."""
@@ -14,7 +19,6 @@ def create_atoms(filename):
     except Exception as e:
         print(f"Error reading file {filename}: {e}")
         return []
-
 
 def relax_and_save(task_info):
     """
@@ -32,15 +36,12 @@ def relax_and_save(task_info):
         worker_name = os.uname().nodename
         print(f"Worker '{worker_name}': Starting task for '{output_filename}'")
 
-        # Initialize the calculator with the passed parameters
         calculator = TBLite(**tblite_params)
         atoms.calc = calculator
 
-        # Perform the geometry optimization
         optimizer = LBFGS(atoms)
         optimizer.run(fmax=0.05)
 
-        # Get the final energy and save the structure
         energy = atoms.get_potential_energy()
         write(output_filename, atoms, format='xyz')
         
@@ -51,3 +52,44 @@ def relax_and_save(task_info):
         error_msg = f"An error occurred on worker '{os.uname().nodename}'. Error: {e}"
         print(error_msg)
         return (float('inf'), error_msg)
+
+def calculator(input_files, output_dir, tblite_params):
+    """
+    High-level function to run a parallel relaxation workflow.
+
+    This function prepares the tasks, initializes Dask-MPI, runs the
+    calculations in parallel, and returns the results.
+    """
+    start_time = time.time()
+    
+    # --- 1. Prepare Tasks (Done on the main process) ---
+    tasks_to_process = []
+    print("--- Reading Input Files (Serial) ---")
+    for xyz_file in input_files:
+        base, ext = os.path.splitext(os.path.basename(xyz_file))
+        output_name = f"{base}_relaxed{ext}"
+        output_path = os.path.join(output_dir, output_name)
+        
+        structures = create_atoms(xyz_file)
+        for atoms_obj in structures:
+            tasks_to_process.append((atoms_obj, output_path, tblite_params))
+    print("------------------------------------\n")
+
+    # --- 2. Initialize Dask-MPI and Run Parallel Computation ---
+    results = []
+    if tasks_to_process:
+        print("Data loaded. Initializing Dask-MPI cluster...")
+        dm.initialize()
+
+        with Client() as client:
+            print(f"Cluster ready. Distributing {len(tasks_to_process)} tasks to workers...")
+            futures = client.map(relax_and_save, tasks_to_process)
+            results = client.gather(futures)
+    else:
+        print("\nFATAL ERROR: No structures were read from the input files.")
+            
+    end_time = time.time()
+    total_time = end_time - start_time
+    print(f'\nTotal time for parallel calculations: {total_time:.2f} seconds')
+
+    return results
