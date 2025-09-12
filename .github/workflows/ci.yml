@@ -1,4 +1,4 @@
-name: "Parallel MPI CI/CD"
+ name: "Parallel MPI CI/CD"
 
 # This workflow is triggered on any push or pull request to the 'main' branch.
 on:
@@ -27,21 +27,30 @@ jobs:
           python-version: '3.9'
 
       # Step 3: Install the required system-level MPI library (OpenMPI).
-      # This is the equivalent of 'module load openmpi' on an HPC cluster.
       - name: "Install system-level MPI"
         run: |
           sudo apt-get update
           sudo apt-get install -y openmpi-bin libopenmpi-dev
 
-      # Step 4: Install the Python dependencies using the robust multi-step method.
-      # This ensures mpi4py is compiled correctly against the system's MPI.
-      - name: "Install Python package and MPI dependencies"
+      # Step 4: Install the Python dependencies including pytest.
+      - name: "Install Python package and test dependencies"
         run: |
+          # Install the testing frameworks first
+          pip install pytest pytest-mpi
+
           # Install the core package in editable mode.
           pip install -e .
           
-          # Force mpi4py to be compiled from source, linking against the OpenMPI we just installed.
+          # Force mpi4py to be compiled from source.
           pip install --no-binary :all: mpi4py
           
-          # Now that mpi4py is correctly installed, we can install dask-mpi.
-          pip install dask-mpi      
+          # Now that mpi4py is correctly installed, install dask-mpi.
+          pip install dask-mpi
+      
+      # Step 5: Execute the parallel tests using pytest.
+      # The pytest-mpi plugin allows pytest to run tests in parallel via mpirun.
+      # We explicitly point it to the 'tests/' directory, which contains the test data.
+      - name: "Run parallel integration test with pytest"
+        run: |
+          echo "Executing tests within the 'tests/' directory with 4 parallel MPI processes..."
+          mpirun -np 4 pytest tests/  
