@@ -1,4 +1,4 @@
-## parallel_workflow
+# parallel_workflow
 This new library utilizes an MPI workflow to perform high-throughput calculations, making it ideal for creating massive databases.
 This document provides detailed instructions on how to set up the necessary environment and dependencies to run this project. The core requirement is a functional MPI (Message Passing Interface) implementation, specifically OpenMPI, that can be used by Python packages like mpi4py.
 
@@ -70,13 +70,19 @@ With OpenMPI loaded and the virtual environment active, install mpi4py and any o
 pip install --upgrade pip
 ```
 
-**Install mpi4py and other packages**
+**Install parallel_workflow**
+
+Now, install the parallel_mpi_htp package in "editable" mode.
+
+- The -e flag links the installation to your source code, so any changes you make are immediately available.
+
+- The .[mpi] part tells pip to install the optional MPI-related Python libraries (mpi4py, dask-mpi) defined in the pyproject.toml.
 
 ```
-pip install mpi4py numpy pandas
+pip install -e .[mpi]
 ```
 
-Ready to Go!
+**Ready to Go!**
 
 Your environment is now set up. To run a script, use the mpirun command provided by the module.
 
