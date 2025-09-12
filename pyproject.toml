@@ -26,3 +26,15 @@ mpi = [
     "mpi4py",
     "dask-mpi"
 ]
+
+# --- Dependencies required only for running tests ---
+test = [
+    "pytest",
+    "pytest-mpi"
+]
+
+# --- PYTEST CONFIGURATION SECTION ---
+[tool.pytest.ini_options]
+markers = [
+    "mpi: marks tests as MPI-dependent and requiring parallel execution",
+]
