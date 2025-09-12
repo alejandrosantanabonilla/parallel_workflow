@@ -1,0 +1,59 @@
+name: "Parallel MPI CI/CD"
+
+# This workflow is triggered on any push or pull request to the 'main' branch.
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test-parallel-execution:
+    # A descriptive name for the job that will appear in the GitHub Actions UI.
+    name: "Run Parallel Integration Test"
+    
+    # The job will run on a virtual machine with the latest version of Ubuntu.
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Get the code from your repository.
+      - name: "Checkout repository code"
+        uses: actions/checkout@v4
+
+      # Step 2: Set up a specific version of Python.
+      - name: "Set up Python 3.9"
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+
+      # Step 3: Install the required system-level MPI library (OpenMPI).
+      # This is the equivalent of 'module load openmpi' on an HPC cluster.
+      - name: "Install system-level MPI"
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y openmpi-bin libopenmpi-dev
+
+      # Step 4: Install the Python dependencies using the robust multi-step method.
+      # This ensures mpi4py is compiled correctly against the system's MPI.
+      - name: "Install Python package and MPI dependencies"
+        run: |
+          # Install the core package in editable mode.
+          pip install -e .
+          
+          # Force mpi4py to be compiled from source, linking against the OpenMPI we just installed.
+          pip install --no-binary :all: mpi4py
+          
+          # Now that mpi4py is correctly installed, we can install dask-mpi.
+          pip install dask-mpi
+      
+      # Step 5: Execute the test script in a parallel environment.
+      # We use 'mpirun -np 4' to simulate a multi-core environment, which is
+      # essential for catching bugs in parallel code (e.g., race conditions).
+      - name: "Run parallel integration test"
+        run: |
+          echo "Executing test script with 4 parallel MPI processes..."
+          mpirun -np 4 python water50.py
+
+git add .github/workflows/ci.yml
+git commit -m "feat: Add GitHub Actions CI workflow for parallel testing"
+git push
