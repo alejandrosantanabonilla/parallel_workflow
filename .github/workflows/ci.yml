@@ -1,4 +1,4 @@
- name: "Parallel MPI CI/CD"
+name: "Parallel MPI CI/CD"
 
 # This workflow is triggered on any push or pull request to the 'main' branch.
 on:
@@ -53,4 +53,7 @@ jobs:
       - name: "Run parallel integration test with pytest"
         run: |
           echo "Executing tests within the 'tests/' directory with 4 parallel MPI processes..."
-          mpirun -np 4 pytest tests/  
+          mpirun -np 4 pytest tests/
+
+
+
