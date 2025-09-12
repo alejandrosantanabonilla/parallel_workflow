@@ -9,6 +9,7 @@ requires-python = ">=3.8"
 
 # Core dependencies that are pure Python or have reliable pre-built wheels
 dependencies = [
+    "pytest",
     "ase",
     "dask[complete]",
     "tblite==0.4.0",
